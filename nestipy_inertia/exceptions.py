@@ -1,0 +1,2 @@
+class InertiaVersionConflictException(Exception):
+    pass

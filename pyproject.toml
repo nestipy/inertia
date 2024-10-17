@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "nestipy-inertia"
+version = "0.1.1"
+description = "Inertia package dapater for Nestipy"
+authors = ["Tsiresy Milà <tsiresymila@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

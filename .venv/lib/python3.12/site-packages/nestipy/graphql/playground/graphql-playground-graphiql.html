@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Graphql Playground</title>
+    <link rel="shortcut icon" href="/_devtools/static/graphql/favicon.png" />
+    <style>
+      body {
+        height: 100%;
+        margin: 0;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      #graphiql {
+        height: 100vh;
+        display: flex;
+      }
+
+      .docExplorerHide {
+        display: none;
+      }
+
+      .doc-explorer-contents {
+        overflow-y: hidden !important;
+      }
+
+      .docExplorerWrap {
+        width: unset !important;
+        min-width: unset !important;
+      }
+
+      .graphiql-explorer-actions select {
+        margin-left: 4px;
+      }
+    </style>
+
+    <script
+      crossorigin
+      src="/_devtools/static/graphiql/react.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="/_devtools/static/graphiql/react-dom.production.min.js"
+    ></script>
+
+    <script
+      crossorigin
+      src="/_devtools/static/graphiql/js.cookie.min.js"
+    ></script>
+
+    <link
+      crossorigin
+      rel="stylesheet"
+      href="/_devtools/static/graphiql/graphiql.min.css"
+    />
+
+    <link
+      crossorigin
+      rel="stylesheet"
+      href="/_devtools/static/graphiql/style.css"
+    />
+  </head>
+
+  <body>
+    <div id="graphiql" class="graphiql-container">Loading...</div>
+    <script
+      crossorigin
+      src="/_devtools/static/graphiql/graphiql.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="/_devtools/static/graphiql/index.umd.js"
+    ></script>
+    <script>
+      const EXAMPLE_QUERY = ``;
+
+      const fetchURL = window.location.href;
+
+      function httpUrlToWebSocketUrl(url) {
+        const parsedURL = new URL(url);
+        parsedURL.protocol = parsedURL.protocol === "http:" ? "ws:" : "wss:";
+        parsedURL.hash = "";
+        return parsedURL.toString();
+      }
+
+      const headers = {};
+      const csrfToken = Cookies.get("csrftoken");
+
+      if (csrfToken) {
+        headers["x-csrftoken"] = csrfToken;
+      }
+
+      const subscriptionsEnabled = JSON.parse("true");
+      const subscriptionUrl = subscriptionsEnabled
+        ? httpUrlToWebSocketUrl(fetchURL)
+        : null;
+
+      const fetcher = GraphiQL.createFetcher({
+        url: fetchURL,
+        headers: headers,
+        subscriptionUrl,
+      });
+
+      const explorerPlugin = GraphiQLPluginExplorer.explorerPlugin();
+
+      const root = ReactDOM.createRoot(document.getElementById("graphiql"));
+
+      root.render(
+        React.createElement(GraphiQL, {
+          fetcher: fetcher,
+          defaultEditorToolsVisibility: true,
+          plugins: [explorerPlugin],
+          inputValueDeprecation: true,
+        }),
+      );
+    </script>
+  </body>
+</html>

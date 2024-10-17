@@ -1,0 +1,3 @@
+[console_scripts]
+nestipy=nestipy_cli.cli:main
+
