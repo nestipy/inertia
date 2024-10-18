@@ -22,8 +22,6 @@ class InertiaMiddleware(NestipyMiddleware):
 
         try:
             setattr(res, 'inertia', Inertia(request=req, response=res, config=self._config))
-            req.session.pop('_messages')
-            req.session.pop('_errors')
         except InertiaVersionConflictException:
             return res.status(HttpStatus.CONFLICT).header("X-Inertia-Location", str(res.inertia.get_full_url()))
         try:
@@ -54,5 +52,3 @@ class InertiaMiddleware(NestipyMiddleware):
                 return await res.inertia.back()
             else:
                 raise ex
-        finally:
-            req.session.clear()

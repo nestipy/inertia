@@ -26,7 +26,6 @@ except (ModuleNotFoundError, ImportError):
 
 logger = logging.getLogger(__name__)
 
-
 T = TypeVar("T")
 
 

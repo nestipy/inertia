@@ -1,7 +1,8 @@
-from typing import Literal, Type, AsyncGenerator, Union, Callable
-from json import JSONEncoder
-from .utils import InertiaJsonEncoder
 from dataclasses import dataclass
+from json import JSONEncoder
+from typing import Literal, Type
+
+from .utils import InertiaJsonEncoder
 
 try:
     import httpx

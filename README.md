@@ -155,7 +155,7 @@ export default nestipyVite
 
 ```
 
-`view/index.html`
+`views/index.html`
 ```html
 <!Doctype html>
 <html lang="en">
