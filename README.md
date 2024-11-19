@@ -219,7 +219,7 @@ class AppController:
         return await res.inertia.back()
 
 ```
-Viw full exapmle code [here](https://github.com/nestipy/inertia/tree/main/example).
+Viw full example code [here](https://github.com/nestipy/inertia/tree/main/example).
 ## Support
 
 Nestipy is an MIT-licensed open source project. It can grow thanks to the sponsors and support from the amazing backers.
