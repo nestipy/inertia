@@ -37,24 +37,7 @@ app = NestipyFactory.create(AppModule)
 
 # set view engine mini jinja and
 app.set_base_view_dir(os.path.join(os.path.dirname(__file__), "views"))
-
-# app.use_static_assets()
-env = app.get_template_engine().get_env()
-env.add_function("inertiaHead", inertia_head)
-env.add_function("inertiaBody", inertia_body)
-
-# When using react
-env.add_function("viteReactRefresh", vite_react_refresh)
-# Inertia config
-
-front_dir = (
-    os.path.join(os.path.dirname(__file__), "inertia", "dist")
-    if inertia_config.environment != "development" or inertia_config.ssr_enabled is True
-    else os.path.join(os.path.dirname(__file__), "inertia", "src")
-)
-
-app.use_static_assets(front_dir, "/dist")
-app.use_static_assets(os.path.join(front_dir, "assets"), "/assets")
+# enable session
 app.use(session())
 
 if __name__ == '__main__':
@@ -64,31 +47,26 @@ if __name__ == '__main__':
 ```
 `app_module.py`
 ```python
-import os
+import os.path
 
 from nestipy.common import Module
 
 from app_controller import AppController
 from app_service import AppService
 from nestipy_inertia import InertiaModule, InertiaConfig
+from nestipy.common import Module
 
-inertia_config = InertiaConfig(
-    manifest_json_path=os.path.join(
-        os.path.dirname(__file__), "inertia", "dist", "manifest.json"
-    ),
-    environment="development",
-    use_flash_messages=True,
-    use_flash_errors=True,
-    entrypoint_filename="main.tsx",
-    ssr_enabled=False,
-    assets_prefix="/dist",
-)
+from app_controller import AppController
+from app_service import AppService
+from nestipy_inertia import InertiaModule, InertiaConfig
 
 
 @Module(
     imports=[
         InertiaModule.register(
-            inertia_config
+            InertiaConfig(
+                root_dir=os.path.join(os.getcwd(), "inertia")
+            )
         )
     ],
     controllers=[AppController],

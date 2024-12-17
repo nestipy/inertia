@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nestipy-inertia"
-version = "0.1.4"
+version = "0.1.5"
 description = "Inertia package dapater for Nestipy"
 authors = ["Tsiresy Milà <tsiresymila@gmail.com>"]
 readme = "README.md"

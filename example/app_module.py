@@ -1,28 +1,23 @@
-import os
+import os.path
 
 from nestipy.common import Module
 
 from app_controller import AppController
 from app_service import AppService
 from nestipy_inertia import InertiaModule, InertiaConfig
+from nestipy.common import Module
 
-inertia_config = InertiaConfig(
-    manifest_json_path=os.path.join(
-        os.path.dirname(__file__), "inertia", "dist", "manifest.json"
-    ),
-    environment="development",
-    use_flash_messages=True,
-    use_flash_errors=True,
-    entrypoint_filename="main.tsx",
-    ssr_enabled=False,
-    assets_prefix="/dist",
-)
+from app_controller import AppController
+from app_service import AppService
+from nestipy_inertia import InertiaModule, InertiaConfig
 
 
 @Module(
     imports=[
         InertiaModule.register(
-            inertia_config
+            InertiaConfig(
+                root_dir=os.path.join(os.getcwd(), "inertia")
+            )
         )
     ],
     controllers=[AppController],

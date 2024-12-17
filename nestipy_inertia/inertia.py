@@ -163,9 +163,9 @@ class Inertia:
         Set the Inertia files (CSS and JS) based on the configuration
         """
         if self._config.environment == "production" or self._config.ssr_enabled:
-            manifest = _read_manifest_file(self._config.manifest_json_path)
+            manifest = _read_manifest_file(os.path.join(self._config.root_dir, self._config.build_dir, self._config.manifest_json_path))
             asset_manifest = manifest[
-                f"{self._config.root_directory}/{self._config.entrypoint_filename}"
+                f"{self._config.src_dir}/{self._config.entrypoint_filename}"
             ]
             css_file_urls = asset_manifest.get("css", []) or []
             js_file_url = asset_manifest["file"]
@@ -178,7 +178,7 @@ class Inertia:
                 js_file_url=os.path.join("/", self._config.assets_prefix, js_file_url),
             )
         else:
-            js_file_url = f"{self._config.dev_url}/{self._config.root_directory}/{self._config.entrypoint_filename}"
+            js_file_url = f"{self._config.dev_url}/{self._config.src_dir}/{self._config.entrypoint_filename}"
             self._inertia_files = InertiaFiles(
                 css_file_urls=[], js_file_url=js_file_url
             )
